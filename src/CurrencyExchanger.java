@@ -7,18 +7,9 @@ public class CurrencyExchanger
 {
     public static void main(String[] args) throws Exception
     {
-        ExchangeReceiver test = new ExchangeReceiver("NOK");
-        System.out.println(test.getEur());
-        System.out.println(test.getGbp());
-        System.out.println(test.getNok());
-        
-        test.setBaseCurrency("GBP");
-        test.parseCurrencies();
-        System.out.println(test.getNok());
-        System.out.println(test.getEur());
-        
         UserInterface userInterface = new UserInterface();
-        userInterface.setSize(600,400);
+        userInterface.setSize(500,250);
+        userInterface.setResizable(false);
         userInterface.setVisible(true);
     }
 }
