@@ -9,7 +9,7 @@ import java.net.URLConnection;
  * Coded by RootAlgorithm
  */
 
-public class ExchangeReceiver
+class ExchangeReceiver
 {
     private String baseCurrency;
     private double nok;
@@ -18,13 +18,13 @@ public class ExchangeReceiver
     private double usd;
     private double eur;
     
-    public ExchangeReceiver(String baseCurrency) throws Exception
+    ExchangeReceiver(String baseCurrency) throws Exception
     {
         setBaseCurrency(baseCurrency);
         parseCurrencies();
     }
     
-    public void parseCurrencies() throws Exception
+    void parseCurrencies() throws Exception
     {
         resetRates();
         String requestURL = String.format("http://api.fixer.io/latest?base=%s", getBaseCurrency());
@@ -56,7 +56,7 @@ public class ExchangeReceiver
         bufferedReader.close();
     }
     
-    public void resetRates()
+    private void resetRates()
     {
         setNok(1.0);
         setSek(1.0);
@@ -65,51 +65,51 @@ public class ExchangeReceiver
         setEur(1.0);
     }
     
-    public String getBaseCurrency() {
+    private String getBaseCurrency() {
         return baseCurrency;
     }
     
-    public void setBaseCurrency(String baseCurrency) {
+    void setBaseCurrency(String baseCurrency) {
         this.baseCurrency = baseCurrency;
     }
     
-    public double getNok() {
+    double getNok() {
         return nok;
     }
     
-    public void setNok(double nok) {
+    private void setNok(double nok) {
         this.nok = nok;
     }
     
-    public double getSek() {
+    double getSek() {
         return sek;
     }
     
-    public void setSek(double sek) {
+    private void setSek(double sek) {
         this.sek = sek;
     }
     
-    public double getGbp() {
+    double getGbp() {
         return gbp;
     }
     
-    public void setGbp(double gbp) {
+    private void setGbp(double gbp) {
         this.gbp = gbp;
     }
     
-    public double getUsd() {
+    double getUsd() {
         return usd;
     }
     
-    public void setUsd(double usd) {
+    private void setUsd(double usd) {
         this.usd = usd;
     }
     
-    public double getEur() {
+    double getEur() {
         return eur;
     }
     
-    public void setEur(double eur) {
+    private void setEur(double eur) {
         this.eur = eur;
     }
 }
