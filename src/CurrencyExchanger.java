@@ -1,6 +1,8 @@
 /**
  * Created by Talimere on 23.04.2017.
- * Coded by RootAlgorithm.
+ * Coded by RootAlgorithm
+ *
+ * Mandatory assignment in PGR101
  */
 
 public class CurrencyExchanger

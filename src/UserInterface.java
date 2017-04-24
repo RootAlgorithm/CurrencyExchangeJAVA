@@ -20,9 +20,10 @@ class UserInterface extends JFrame
 
     private JComboBox currenciesList;
     
-    //Creating an array that will hold unchangeable data.
+    //Creating an array that will hold unchangeable data
     private static final String[] currenciesArray = {"NOK", "SEK", "GBP", "USD", "EUR"};
-    //Initializing the selected item to NOK.
+
+    //Initializing the selected item to NOK
     private String selectedItem = currenciesArray[0];
     
     private ExchangeReceiver exchangeReceiver;
@@ -31,19 +32,21 @@ class UserInterface extends JFrame
     
     UserInterface() throws Exception
     {
-        //Using the super to set the title instead of the setTitle method.
+        //Using the super to set the title instead of the setTitle method
         super("Valutakalkulator");
         
         //Initializing the exchange receiver
         exchangeReceiver = new ExchangeReceiver(getSelectedItem());
         
-        //Creating the panel for user input.
+        //Creating the panel for user input
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
         
-        //Adding a combo box for selecting the base currency.
+        //Adding a combo box for selecting the base currency
         currenciesList = new JComboBox<>(currenciesArray);
         currenciesList.setMaximumRowCount(5);
+
+        //IntelliJ suggested that I use a lambda here
         currenciesList.addItemListener(event ->
         {
             if(event.getStateChange() == ItemEvent.SELECTED)
@@ -53,11 +56,11 @@ class UserInterface extends JFrame
         });
         inputPanel.add(currenciesList);
         
-        //Adding the input text field.
+        //Adding the input text field
         fromValue = new JTextField(10);
         inputPanel.add(fromValue);
         
-        //Creating the panel for displaying data.
+        //Creating the panel for displaying data
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new GridLayout(0, 2, 5, 10));
         
@@ -106,7 +109,8 @@ class UserInterface extends JFrame
         
         JButton exitButton = new JButton("Avslutt");
         buttonPanel.add(exitButton);
-        
+
+        //Setting up the event handlers for the buttons
         ButtonEvent buttonEvent = new ButtonEvent();
         calButton.addActionListener(buttonEvent);
         exitButton.addActionListener(buttonEvent);
@@ -133,7 +137,9 @@ class UserInterface extends JFrame
             }
             else if(action.equals("Kalkuler"))
             {
+                //Sets the base currency in the exchange receiver to whatever is selected as the base currency
                 exchangeReceiver.setBaseCurrency(getSelectedItem());
+
                 try
                 {
                     exchangeReceiver.parseCurrencies();

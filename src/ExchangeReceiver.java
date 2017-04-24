@@ -26,13 +26,24 @@ class ExchangeReceiver
     
     void parseCurrencies() throws Exception
     {
+        //Sets all the rates to 1.0 so the base currency will not display incorrectly (mathematically)
         resetRates();
+
+        //Sets up a request URL based on which currency is the base
         String requestURL = String.format("http://api.fixer.io/latest?base=%s", getBaseCurrency());
         URL fixerURL = new URL(requestURL);
+
+        //Connects to the URL
         URLConnection connection = fixerURL.openConnection();
+
+        //Receives the response
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String response = bufferedReader.readLine();
+
+        //Parses the response to a JSON Object
         JSONObject jsonResponse = new JSONObject(response);
+
+        //Sets the currency rates if the requested rate is not the base currency
         if(!getBaseCurrency().equals("NOK"))
         {
             setNok(jsonResponse.getJSONObject("rates").getDouble("NOK"));
@@ -53,6 +64,7 @@ class ExchangeReceiver
         {
             setEur(jsonResponse.getJSONObject("rates").getDouble("EUR"));
         }
+
         bufferedReader.close();
     }
     
@@ -64,7 +76,11 @@ class ExchangeReceiver
         setUsd(1.0);
         setEur(1.0);
     }
-    
+
+    /**
+     * IntelliJ generated methods
+     */
+
     private String getBaseCurrency() {
         return baseCurrency;
     }
