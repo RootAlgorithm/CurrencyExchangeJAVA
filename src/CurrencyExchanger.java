@@ -1,4 +1,3 @@
-
 /**
  * Created by Talimere on 23.04.2017.
  * Coded by RootAlgorithm.
@@ -17,5 +16,9 @@ public class CurrencyExchanger
         test.parseCurrencies();
         System.out.println(test.getNok());
         System.out.println(test.getEur());
+        
+        UserInterface userInterface = new UserInterface();
+        userInterface.setSize(600,400);
+        userInterface.setVisible(true);
     }
 }
