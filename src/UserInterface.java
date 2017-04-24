@@ -142,10 +142,21 @@ class UserInterface extends JFrame
                 {
                     System.err.println("Noe gikk galt!");
                 }
-                
-                inputAmount = Double.parseDouble(fromValue.getText());
-                
-                exchangeHandler();
+
+                try
+                {
+                    inputAmount = Double.parseDouble(fromValue.getText());
+                    exchangeHandler();
+                }
+                catch (NumberFormatException e)
+                {
+                    JOptionPane.showMessageDialog(null, "Du har ikke skrevet inn en sum!", "Feil", JOptionPane.ERROR_MESSAGE);
+                    nokVal.setText(String.format("%s", "Nå"));
+                    sekVal.setText(String.format("%s", "har"));
+                    gbpVal.setText(String.format("%s", "du"));
+                    usdVal.setText(String.format("%s", "gjort"));
+                    eurVal.setText(String.format("%s", "feil..."));
+                }
             }
         }
     }
