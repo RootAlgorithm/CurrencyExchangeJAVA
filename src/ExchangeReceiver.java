@@ -12,11 +12,7 @@ import java.net.URLConnection;
 class ExchangeReceiver
 {
     private String baseCurrency;
-    private double nok;
-    private double sek;
-    private double gbp;
-    private double usd;
-    private double eur;
+    private double nok, sek, gbp, usd, eur;
     
     ExchangeReceiver(String baseCurrency) throws Exception
     {

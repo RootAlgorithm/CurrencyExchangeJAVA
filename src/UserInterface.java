@@ -12,11 +12,7 @@ import java.awt.event.ActionEvent;
 class UserInterface extends JFrame
 {
     private JTextField fromValue;
-    private JTextField nokVal;
-    private JTextField sekVal;
-    private JTextField gbpVal;
-    private JTextField usdVal;
-    private JTextField eurVal;
+    private JTextField nokVal, sekVal, gbpVal, usdVal, eurVal;
 
     private JComboBox currenciesList;
     
