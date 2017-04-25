@@ -108,6 +108,9 @@ class UserInterface extends JFrame
         buttonPanel.add(calButton);
         
         JButton exitButton = new JButton("Avslutt");
+
+        //Added the action listener as a lambda
+        exitButton.addActionListener(event -> System.exit(0));
         buttonPanel.add(exitButton);
 
         //Setting up the event handlers for the buttons
@@ -130,12 +133,19 @@ class UserInterface extends JFrame
         public void actionPerformed(ActionEvent event)
         {
             String action = event.getActionCommand();
-            
+
+            /*
+             * I changed the exit button from being sent to the action handling class
+             * to being implemented as a lambda instead.
+             */
+
+            /*
             if(action.equals("Avslutt"))
             {
                 System.exit(0);
             }
-            else if(action.equals("Kalkuler"))
+            */
+            if(action.equals("Kalkuler"))
             {
                 //Sets the base currency in the exchange receiver to whatever is selected as the base currency
                 exchangeReceiver.setBaseCurrency(getSelectedItem());
