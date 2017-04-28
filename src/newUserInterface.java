@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
  * Coded by RootAlgorithm
  */
 
-class UserInterface extends JFrame
+class newUserInterface extends JFrame
 {
     private JTextField fromValue;
     private JTextField nokVal, sekVal, gbpVal, usdVal, eurVal;
@@ -26,7 +26,7 @@ class UserInterface extends JFrame
     
     private double inputAmount;
     
-    UserInterface() throws Exception
+    newUserInterface() throws Exception
     {
         //Using the super to set the title instead of the setTitle method
         super("Valutakalkulator");

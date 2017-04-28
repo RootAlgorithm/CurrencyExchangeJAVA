@@ -1,5 +1,3 @@
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,20 +7,17 @@ import java.awt.event.ActionEvent;
  * Coded by RootAlgorithm
  */
 
-public class SecondUserInterface extends JFrame
+class oldUserInterface extends JFrame
 {
     private JTextField nokValue, otherValue;
-    private JLabel nokLabel, otherLabel;
-
-    private ExchangeReceiver exchangeReceiver;
 
     private double gbp, eur, usd, sek;
 
-    public SecondUserInterface() throws Exception
+    oldUserInterface() throws Exception
     {
         super("VALUTAKALKULATOR");
 
-        exchangeReceiver = new ExchangeReceiver("NOK");
+        ExchangeReceiver exchangeReceiver = new ExchangeReceiver("NOK");
 
         setGbp(exchangeReceiver.getGbp());
         setEur(exchangeReceiver.getEur());
@@ -40,32 +35,32 @@ public class SecondUserInterface extends JFrame
         JPanel operatorButtonPanel = new JPanel();
         operatorButtonPanel.setLayout(new FlowLayout());
 
-        nokLabel = new JLabel("NOK");
+        JLabel nokLabel = new JLabel("NOK");
         inOutPanel.add(nokLabel);
 
         nokValue = new JTextField(12);
         inOutPanel.add(nokValue);
 
-        otherLabel = new JLabel("Annen Valuta");
+        JLabel otherLabel = new JLabel("Annen Valuta");
         inOutPanel.add(otherLabel);
 
         otherValue = new JTextField(12);
         inOutPanel.add(otherValue);
 
         JButton gbpButton = new JButton("GBP");
-        gbpButton.addActionListener(click -> doCalculation(click));
+        gbpButton.addActionListener(this::doCalculation);
         currencyButtonPanel.add(gbpButton);
 
         JButton eurButton = new JButton("EUR");
-        eurButton.addActionListener(click -> doCalculation(click));
+        eurButton.addActionListener(this::doCalculation);
         currencyButtonPanel.add(eurButton);
 
         JButton usdButton = new JButton("USD");
-        usdButton.addActionListener(click -> doCalculation(click));
+        usdButton.addActionListener(this::doCalculation);
         currencyButtonPanel.add(usdButton);
 
         JButton sekButton = new JButton("SEK");
-        sekButton.addActionListener(click -> doCalculation(click));
+        sekButton.addActionListener(this::doCalculation);
         currencyButtonPanel.add(sekButton);
 
         JButton removeNokButton = new JButton("Fjern NOK");
@@ -91,11 +86,10 @@ public class SecondUserInterface extends JFrame
         this.add(inOutPanel, BorderLayout.NORTH);
         this.add(currencyButtonPanel, BorderLayout.CENTER);
         this.add(operatorButtonPanel, BorderLayout.SOUTH);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
 
-    public boolean checkForErrors()
+    private boolean checkForErrors()
     {
         if((nokValue.getText().equals("")) && (otherValue.getText().equals("")))
         {
@@ -110,7 +104,7 @@ public class SecondUserInterface extends JFrame
         return false;
     }
 
-    public void doCalculation(ActionEvent event)
+    private void doCalculation(ActionEvent event)
     {
         if(!checkForErrors())
         {
@@ -119,41 +113,41 @@ public class SecondUserInterface extends JFrame
                 case "GBP":
                     if(whichWay().equals("fromnok"))
                     {
-                        otherValue.setText(String.format("%.2f", Double.parseDouble(nokValue.getText()) * getGbp()));
+                        otherValue.setText(String.format("%.2f", parseVal(nokValue.getText()) * getGbp()));
                     }
                     else if(whichWay().equals("fromother"))
                     {
-                        nokValue.setText(String.format("%.2f", Double.parseDouble(otherValue.getText()) / getGbp()));
+                        nokValue.setText(String.format("%.2f", parseVal(otherValue.getText()) / getGbp()));
                     }
                     break;
                 case "EUR":
                     if(whichWay().equals("fromnok"))
                     {
-                        otherValue.setText(String.format("%.2f", Double.parseDouble(nokValue.getText()) * getEur()));
+                        otherValue.setText(String.format("%.2f", parseVal(nokValue.getText()) * getEur()));
                     }
                     else if(whichWay().equals("fromother"))
                     {
-                        nokValue.setText(String.format("%.2f", Double.parseDouble(otherValue.getText()) / getEur()));
+                        nokValue.setText(String.format("%.2f", parseVal(otherValue.getText()) / getEur()));
                     }
                     break;
                 case "USD":
                     if(whichWay().equals("fromnok"))
                     {
-                        otherValue.setText(String.format("%.2f", Double.parseDouble(nokValue.getText()) * getUsd()));
+                        otherValue.setText(String.format("%.2f", parseVal(nokValue.getText()) * getUsd()));
                     }
                     else if(whichWay().equals("fromother"))
                     {
-                        nokValue.setText(String.format("%.2f", Double.parseDouble(otherValue.getText()) / getUsd()));
+                        nokValue.setText(String.format("%.2f", parseVal(otherValue.getText()) / getUsd()));
                     }
                     break;
                 case "SEK":
                     if(whichWay().equals("fromnok"))
                     {
-                        otherValue.setText(String.format("%.2f", Double.parseDouble(nokValue.getText()) * getSek()));
+                        otherValue.setText(String.format("%.2f", parseVal(nokValue.getText()) * getSek()));
                     }
                     else if(whichWay().equals("fromother"))
                     {
-                        nokValue.setText(String.format("%.2f", Double.parseDouble(otherValue.getText()) / getSek()));
+                        nokValue.setText(String.format("%.2f", parseVal(otherValue.getText()) / getSek()));
                     }
                     break;
                 default:
@@ -163,7 +157,22 @@ public class SecondUserInterface extends JFrame
 
     }
 
-    public String whichWay()
+    private double parseVal(String valString)
+    {
+        double retVal = 0.0;
+        try
+        {
+            retVal = Double.parseDouble(valString);
+        }
+        catch (NumberFormatException nfe)
+        {
+            nfe.printStackTrace();
+        }
+        return retVal;
+    }
+
+
+    private String whichWay()
     {
         if(!nokValue.getText().equals(""))
         {
@@ -172,42 +181,42 @@ public class SecondUserInterface extends JFrame
         return "fromother";
     }
 
-    public double getGbp()
+    private double getGbp()
     {
         return gbp;
     }
 
-    public void setGbp(double gbp)
+    private void setGbp(double gbp)
     {
         this.gbp = gbp;
     }
 
-    public double getEur()
+    private double getEur()
     {
         return eur;
     }
 
-    public void setEur(double eur)
+    private void setEur(double eur)
     {
         this.eur = eur;
     }
 
-    public double getUsd()
+    private double getUsd()
     {
         return usd;
     }
 
-    public void setUsd(double usd)
+    private void setUsd(double usd)
     {
         this.usd = usd;
     }
 
-    public double getSek()
+    private double getSek()
     {
         return sek;
     }
 
-    public void setSek(double sek)
+    private void setSek(double sek)
     {
         this.sek = sek;
     }
